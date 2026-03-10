@@ -1,85 +1,166 @@
-.product-container{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;  
-    align-items: center;
-    height: 100%;
-    align-self: center;
-}
-
-.product{
-    padding: 20px;
-    border-radius: 10px;
+/* ===== RESET & BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out;
-    background-color: #06072e;
 }
 
-.product:hover{
-    transform: scale(1.05) translateY(-10px);
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f4e9;
+    /* soft cream */
+    color: #1a2e4f;
+    /* navy */
+    line-height: 1.6;
 }
 
-.product:nth-child(1){
- animation: move 2s  infinite alternate;
+/* ===== HEADER ===== */
+header {
+    background-color: #0a1f3b;
+    /* navy */
+    color: white;
+    padding: 1rem 0;
+    text-align: center;
+    border-bottom: 4px solid #6b4f3c;
+    /* brown */
 }
 
-.product:nth-child(2){
- animation: move 2s  infinite alternate;
- animation-delay: 0.5s;
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
 }
 
-.product:nth-child(3){
- animation: move 2s  infinite alternate;
- animation-delay: 1s;
+.typing {
+    color: #f9a826;
+    /* gold */
 }
 
-.product:nth-child(4){
- animation: move 2s  infinite alternate;
- animation-delay: 1.5s;
+/* ===== MARQUEE WRAPPER ===== */
+.marquee-wrapper {
+    width: 100%;
+    overflow: hidden;
+    /* hide cards outside this area */
+    background-color: #f8f4e9;
+    /* cream background behind cards */
+    padding: 1rem 0;
 }
 
-.product:nth-child(5){
- animation: move 2s  infinite alternate;
- animation-delay: 2s;
+/* ===== PRODUCT CONTAINER (the moving track) ===== */
+.product-container {
+    display: flex;
+    gap: 1.5rem;
+    /* space between cards */
+    width: max-content;
+    /* expands to fit all 20 cards */
+    animation: scroll 30s linear infinite;
+    /* adjust speed by changing 30s */
 }
 
-.product:nth-child(6){
- animation: move 2s  infinite alternate;
- animation-delay: 2.5s;
-}
-
-.product:nth-child(7){
- animation: move 2s  infinite alternate;
- animation-delay: 3s;
-}   
-
-.product:nth-child(8){
- animation: move 2s  infinite alternate;
- animation-delay: 3.5s;
-}   
-
-.product:nth-child(9){
- animation: move 2s  infinite alternate;
- animation-delay: 4s;
-}
-
-.product:nth-child(10){
- animation: move 2s  infinite alternate;
- animation-delay: 4.5s;
-}
-
-@keyframes move {
-  0%{transform: translateX(0);
-  opacity: 1;
-  }
-  50%{transform: translateX(100px);
-    opacity: 0.5;
+/* ===== INFINITE SCROLL ANIMATION ===== */
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
     }
-    100%{transform: translateX(0);
-    opacity: 1;
+
+    100% {
+        transform: translateX(-50%);
+    }
+
+    /* moves left by half (because cards are duplicated) */
+}
+
+/* ===== PRODUCT CARD ===== */
+.product {
+    flex: 0 0 auto;
+    /* prevents shrinking */
+    width: 260px;
+    /* fixed width – adjust to your design */
+    background-color: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    border-top: 6px solid #6b4f3c;
+    /* brown accent */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    /* smooth appearance on load */
+    animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
+/* Product image */
+.product-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    /* ensures image fills the space */
+    border-bottom: 2px solid #f9a826;
+    /* gold separator */
+}
 
+/* You'll probably add text, price, button later – here's example styling */
+.product h3,
+.product p,
+.product .price,
+.product .btn {
+    margin: 0.5rem 1rem;
+}
+
+.product .btn {
+    display: inline-block;
+    background-color: #6b4f3c;
+    /* brown */
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.3s;
+    margin-bottom: 1rem;
+}
+
+.product .btn:hover {
+    background-color: #f9a826;
+    /* gold */
+    color: #0a1f3b;
+    /* navy */
+}
+
+/* ===== HOVER EFFECTS ===== */
+
+/* 1. Pause the scroll when mouse enters the marquee wrapper */
+.marquee-wrapper:hover .product-container {
+    animation-play-state: paused;
+}
+
+/* 2. Lift & scale the specific card being hovered (only when scroll paused) */
+.marquee-wrapper:hover .product:hover {
+    transform: scale(1.05) translateY(-8px);
+    box-shadow: 0 20px 30px rgba(10, 31, 59, 0.2);
+    /* navy shadow */
+    z-index: 10;
+}
+
+/* ===== RESPONSIVE (optional) ===== */
+@media (max-width: 768px) {
+    .product {
+        width: 200px;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+}
