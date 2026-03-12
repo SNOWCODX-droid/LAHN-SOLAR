@@ -164,3 +164,54 @@ header h1 {
         font-size: 2rem;
     }
 }
+
+/* Simple top navigation */
+.simple-nav {
+    background-color: #0a1f3b;
+    /* navy */
+    padding: 0.8rem 1rem;
+    text-align: center;
+    border-bottom: 2px solid #6b4f3c;
+    /* brown accent */
+    margin-bottom: 1rem;
+}
+
+.simple-nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 1.2rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 0.3rem 0;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.simple-nav a:hover {
+    color: #f9a826;
+    /* gold */
+}
+
+/* Optional: fancy underline effect (like your other nav) */
+.simple-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #f9a826;
+    transition: width 0.3s ease;
+}
+
+.simple-nav a:hover::after {
+    width: 100%;
+}
+
+/* Responsive: stack links on very small screens if needed */
+@media (max-width: 500px) {
+    .simple-nav a {
+        display: block;
+        margin: 0.5rem 0;
+    }
+}
